@@ -1,0 +1,39 @@
+package day4;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+public class Task_Demoblaze {
+	WebDriver driver;
+	@BeforeMethod
+	void launch() throws InterruptedException {
+		driver=new ChromeDriver();
+		driver.get("https://www.demoblaze.com/index.html");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+	}
+	@Test
+	void login() {
+		driver.findElement(By.id("login2")).click();
+		driver.findElement(By.id("loginusername")).sendKeys("demo");
+		driver.findElement(By.id("loginpassword")).sendKeys("demo");
+		driver.findElement(By.xpath("//button[@onclick='logIn()']")).click();
+		
+		String Expres="";
+		String actres=driver.findElement(By.xpath("//a[text()='Log out']")).getText();
+		System.out.println(actres);
+		//validation
+		SoftAssert sa=new SoftAssert();
+		sa.assertEquals(Expres, actres);
+		sa.assertAll();	
+
+
+
+}
+}
